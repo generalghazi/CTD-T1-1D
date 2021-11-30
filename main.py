@@ -1,54 +1,71 @@
 import tkinter as tk
 import random
 
+#todo: DICTIONARY 1 where keys = STRINGS country names as on wikipedia, values = LISTS OF STRINGS of major city names - at least 15 countries with 4 cities each.
 countries_and_cities = {
-		
-	"Australia": ["Melbourne", "Sydney", "Brisbane", "Perth"],
-	"Belgium": ["Brussels", "Beaumont", "Beringen", "Bree"],
-	"Canada": ["Alberta", "British Columbia", "Manitoba", "Ontario"],
-	"Denmark": ["Cophenhagen", "Aarhus", "Odense", "Aalborg"],
-	"Egypt": ["Arish", "Badr", "Cairo", "Dahab"],
-	"France": ["Paris", "Marseille", "Lyon", "Toulouse"],
-	"Germany": ["Berlin", "Munich", "Hamburg", "Frankfurt"],
-	"Hungary": ["Budapest", "Debrecen", "Szeged", "Miskolc"],
-	"India": ["Chennai", "Bangalore", "Delhi", "Hyderabad"],
-	"Japan": ["Tokyo", "Kyoto", "Osaka", "Hiroshima"],
-	"South Korea": ["Seoul", "Busan", "Incheon", "Daegu"],
-	"Laos": ["Vientiane", "Savannakhet", "Pakse", "Phonsavan"],
-	"Malaysia": ["George Town", "Kuala Lumpur", "Johor Bahru", "Shah Alam"],
-	"New Zealand": ["Auckland", "Christchurch", "Wellington", "Hamilton"],
-	"Poland": ["Warsaw", "Krakow", "Gdansk", "Sopot"],
-	"Russia": ["Moscow", "Saint Petersburg", "Sochi", "Kazan"]
+			
+                        "Australia": ["Melbourne", "Sydney", "Brisbane", "Perth"],
+                        "Belgium": ["Brussels", "Beaumont", "Beringen", "Bree"],
+                        "Canada": ["Alberta", "British Columbia", "Manitoba", "Ontario"],
+                        "Denmark": ["Cophenhagen", "Aarhus", "Odense", "Aalborg"],
+                        "Egypt": ["Arish", "Badr", "Cairo", "Dahab"],
+                        "France": ["Paris", "Marseille", "Lyon", "Toulouse"],
+                        "Germany": ["Berlin", "Munich", "Hamburg", "Frankfurt"],
+                        "Hungary": ["Budapest", "Debrecen", "Szeged", "Miskolc"],
+                        "India": ["Chennai", "Bangalore", "Delhi", "Hyderabad"],
+                        "Japan": ["Tokyo", "Kyoto", "Osaka", "Hiroshima"],
+                        "South Korea": ["Seoul", "Busan", "Incheon", "Daegu"],
+                        "Laos": ["Vientiane", "Savannakhet", "Pakse", "Phonsavan"],
+                        "Malaysia": ["George Town", "Kuala Lumpur", "Johor Bahru", "Shah Alam"],
+                        "New Zealand": ["Auckland", "Christchurch", "Wellington", "Hamilton"],
+                        "Poland": ["Warsaw", "Krakow", "Gdansk", "Sopot"],
+                        "Russia": ["Moscow", "Saint Petersburg", "Sochi", "Kazan"]
 
-	}
-
+			            }
+#todo: DICTIONARY 2 where keys = STRINGS country names as on wikipedia (same as 1st dictionary), values = STRINGS of their capitals
 countries_and_capitals = {
-
-    "Australia": "Canberra", 
-    "Belgium": "Brussels", 
-    "Canada": "Ottawa", 
-    "Denmark": "Copenhagen", 
-    "Egypt": "Cairo", 
-    "France": "Paris", 
-    "Germany": "Berlin", 
-    "Hungary": "Budapest", 
-    "India": "New Delhi", 
-    "Japan": "Tokyo", 
-    "South Korea": "Seoul", 
-    "Laos": "Vientiane", 
-    "Malaysia": "Kuala Lumpur", 
-    "New Zealand": "Wellington", 
-    "Poland": "Warsaw", 
-    "Russia": "Moscow"
-    
-    }
+                            "Australia": "Canberra", 
+                            "Belgium": "Brussels", 
+                            "Canada": "Ottawa", 
+                            "Denmark": "Copenhagen",
+                            "Egypt": "Cairo",
+                            "France": "Paris",
+                            "Germany": "Berlin",
+                            "Hungary": "Budapest",
+                            "India": "New Delhi",
+                            "Japan": "Tokyo",
+                            "South Korea": "Seoul",
+                            "Laos": "Vientiane",
+                            "Malaysia": "Kuala Lumpur",
+                            "New Zealand": "Wellington",
+                            "Poland": "Warsaw",
+                            "Russia": "Moscow"
+                           }
 
 #todo: function to randomly pick 3 keys from a dictionary, then pick one key from those three keys for any length of that dictionary (no hardcoded values; should work on dictionaries with 1 or 8 or 9999 entries) - takes in DICT 1, returns one STRING chosen country, one LIST OF three STRINGS country options
+def place_picker():
 
+    country1, capital1 = random.choice(list(countries_and_capitals.items()))
+    country2, capital2 = random.choice(list(countries_and_capitals.items()))
+    country3, capital3 = random.choice(list(countries_and_capitals.items()))
+
+    random_countries_and_capitals = {country1:capital1, country2:capital2, country3:capital3}
+
+    final_random_country, final_random_capital = random.choice(list(random_countries_and_capitals.items()))
+
+    return (final_random_country, final_random_capital)
 #todo: function to randomly choose a city from the 1st dictionary with a specified country - takes in DICT 1 and one STRING chosen country, returns one STRING chosen city
-
+def random_city(countries_and_cities, chosen_country):
+    chosen_city = random.choice(list(countries_and_cities[chosen_country]))
+    return chosen_city
+    
 #todo: function to check whether the city chosen is the capital of the country specified or not - takes in DICT 2 and two STRINGS chosen country and chosen city, if chosen city is capital returns one BOOLEAN TRUE, otherwise FALSE
-
+def check_answer(countries_and_capitals, chosen_country, chosen_city):
+    capital = countries_and_capitals[chosen_country]
+    if chosen_city == capital:
+        return True 
+    else:
+        return False
 #todo: function to import a DICTIONARY from an external [scores.txt], then append an INTEGER to a LIST IN THE DICTIONARY where key = STRING player name, values = LIST of INTEGER previous scores - takes in one STRING playername, one INT score, writes to external file [scores.txt]
 
 #todo: function to read a DICTIONARY from an external [scores.txt], then with the player name as a key, retrive the values of their highscores and check if the latest score is a highscore - takes in one STRING playername, one INT score, returns 1 LIST OF 3 INT SORTED highscores and if score is highscore returns one BOOLEAN TRUE, otherwise FALSE
@@ -114,7 +131,7 @@ def main():
     def closerules():
         rules.withdraw()
 
-    rule = tk.Label(rules, text="Welcome to Around the World!\n\nIn this game, you will be given a city name; guess the country it belongs to and earn points, get it wrong and lose lives.\nAfter choosing the country it belongs to, tell us if it is its capital or not to earn bonus points!)")
+    rule = tk.Label(rules, text="Welcome to Around the World!\n\nIn this game, you will be given a city name; guess the country it belongs to and earn points, get it wrong and lose lives.\nAfter choosing the country it belongs to, tell us if it is its capital or not to earn bonus points!\n(Wrong answers will not lose lives here.)")
     rule.grid(row=0, column=0, padx=10, pady=20)
 
     exitrules = tk.Button(rules, text="Close", command=closerules)
